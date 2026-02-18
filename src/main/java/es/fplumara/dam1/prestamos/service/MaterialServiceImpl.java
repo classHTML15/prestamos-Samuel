@@ -9,10 +9,10 @@ import es.fplumara.dam1.prestamos.repository.Repository;
 
 import java.util.List;
 
-public class MaterialService {
+public class MaterialServiceImpl {
     private Repository<Material> repositoryMaterial;
 
-    public MaterialService(Repository<Material> repositoryMaterial) {
+    public MaterialServiceImpl(Repository<Material> repositoryMaterial) {
         this.repositoryMaterial = repositoryMaterial;
     }
 
@@ -45,6 +45,7 @@ public class MaterialService {
     }
 
     public List<Material> listarMateriales(){
+
         return repositoryMaterial.listAll();
     }
 }
