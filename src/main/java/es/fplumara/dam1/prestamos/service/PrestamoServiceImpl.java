@@ -8,6 +8,8 @@ import es.fplumara.dam1.prestamos.model.Prestamo;
 import es.fplumara.dam1.prestamos.repository.Repository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -55,7 +57,23 @@ public class PrestamoServiceImpl {
             throw new IllegalArgumentException("El identificador del material esta vacio");
         }
         //Si no existe material → NoEncontradoException
-        if()
+        Optional<Material> materialExistente = materialRepository.findById(materialId);
+        if(materialExistente.isEmpty()) {
+            throw new NoEncontradoException("Material no esta disponible");
+        }
+        Material m = materialExistente.get();
+
+        //Si existe pero su estado no es PRESTADO → MaterialNoDisponibleException
+        if(!m.getEstado().equals(EstadoMaterial.PRESTADO)) {
+            throw new MaterialNoDisponibleException("Material existente no esta prestado");
+        } else if(m.getEstado().equals(EstadoMaterial.DISPONIBLE)) {
+            materialRepository.save(materialExistente.get());
+        }
+
+    }
+
+    public List<Prestamo> listarPrestamos() {
+        return prestamoRepository.listAll();
     }
 
 }

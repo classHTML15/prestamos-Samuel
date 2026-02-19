@@ -16,7 +16,7 @@ public class MaterialServiceImpl {
         this.repositoryMaterial = repositoryMaterial;
     }
 
-    void registrarMaterial(Material material) {
+    public void registrarMaterial(Material material) {
         if (material.getId() == null || material == null || material.getId().isBlank()) {
             throw new IllegalArgumentException("Material o id son invalidos");
         }
@@ -27,7 +27,7 @@ public class MaterialServiceImpl {
         repositoryMaterial.save(material);
     }
 
-    void darDeBaja(String materialId) {
+    public void darDeBaja(String materialId) {
         if(materialId != null) {
             throw new NoEncontradoException("El id del material es invalido");
         }
