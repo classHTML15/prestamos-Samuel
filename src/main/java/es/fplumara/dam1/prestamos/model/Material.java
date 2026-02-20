@@ -1,5 +1,6 @@
 package es.fplumara.dam1.prestamos.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class Material implements Identificable {
@@ -7,13 +8,12 @@ public abstract class Material implements Identificable {
     private String id;
     private String name;
     private EstadoMaterial estado;
-    private Set<String> etiquetas;
+    private Set<String> etiquetas = new HashSet<>();
 
-    public Material(String id, String name, EstadoMaterial estado, Set<String> etiquetas) {
+    public Material(String id, String name, EstadoMaterial estado) {
         this.id = id;
         this.name = name;
         this.estado = estado;
-        this.etiquetas = etiquetas;
     }
 
     public String getId() {
@@ -47,5 +47,6 @@ public abstract class Material implements Identificable {
     public void setEtiquetas(Set<String> etiquetas) {
         this.etiquetas = etiquetas;
     }
+
 
 }

@@ -6,8 +6,17 @@ public class Portatil extends Material {
 
     private int ramGB;
 
-    public Portatil(String id, String name, EstadoMaterial estado, Set<String> etiquetas) {
-        super(id, name, estado, etiquetas);
+
+    public Portatil(String id, String name, EstadoMaterial estado, int ramGB) {
+        super(id, name, estado, ramGB);
+    }
+
+    public int getRamGB() {
+        return ramGB;
+    }
+
+    public void setRamGB(int ramGB) {
+        this.ramGB = ramGB;
     }
 
 }

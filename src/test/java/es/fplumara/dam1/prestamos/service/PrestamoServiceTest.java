@@ -32,6 +32,7 @@ class PrestamosServiceTest {
     PrestamoServiceImpl prestamoService;
 
     @Test
+        // - crearPrestamo_ok_cambiaEstado_y_guarda()
     void crearPrestamo_ok_cambiaEstado_y_guarda() {
         Material material = mock(Material.class);
         when(materialRepository.findById(material.getId())).thenReturn(Optional.of(material));
@@ -41,9 +42,9 @@ class PrestamosServiceTest {
         Prestamo prestamo = prestamoService.crearPrestamo(material.getId(), "Samuel", LocalDate.now());
     }
     // TODO (alumnos): añadir JUnit 5 y Mockito en el pom.xml y completar:
-    //
-    // - crearPrestamo_ok_cambiaEstado_y_guarda()
+
     // - crearPrestamo_materialNoExiste_lanzaNoEncontrado()
+    
     // - crearPrestamo_materialNoDisponible_lanzaMaterialNoDisponible()
     // - devolverMaterial_ok_cambiaADisponible()
     //

@@ -42,7 +42,7 @@ public class PrestamoServiceImpl {
         }
 
         String prestamoId = UUID.randomUUID().toString();
-        Prestamo nuevoPrestamo = new Prestamo(materialId, profesor, fecha);
+        Prestamo nuevoPrestamo = new Prestamo(materialId, profesor, fecha, prestamoId);
         prestamoRepository.save(nuevoPrestamo);
 
         materialRepository.findById(materialId).get().setEstado(EstadoMaterial.PRESTADO);
