@@ -23,7 +23,7 @@ public class PrestamoServiceImpl {
         this.prestamoRepository = prestamoRepository;
     }
 
-    public Prestamo crearPrestamo(String materialId, String profesor, LocalDate fecha) {
+    public Prestamo crearPrestamo(String materialId, String profesor, LocalDate fecha) throws NoEncontradoException, MaterialNoDisponibleException {
         //Si algún parámetro es null/vacío (o fecha null)
         if(materialId == null || materialId.isEmpty() || profesor == null || profesor.isEmpty() || fecha == null) {
             throw new IllegalArgumentException("Los parametros son invalidos");
@@ -37,15 +37,17 @@ public class PrestamoServiceImpl {
         Material m = material.get();
 
         //Si existe, pero su estado no es DISPONIBLE → MaterialNoDisponibleException
-        if (!materialRepository.findById(materialId).get().getEstado().equals(EstadoMaterial.DISPONIBLE)) {
+        if (m.getEstado() != EstadoMaterial.DISPONIBLE) {
             throw new MaterialNoDisponibleException("Material no esta disponible");
         }
 
-        String prestamoId = UUID.randomUUID().toString();
-        Prestamo nuevoPrestamo = new Prestamo(materialId, profesor, fecha, prestamoId);
-        prestamoRepository.save(nuevoPrestamo);
+        m.setEstado(EstadoMaterial.PRESTADO);
+        materialRepository.save(m);
 
-        materialRepository.findById(materialId).get().setEstado(EstadoMaterial.PRESTADO);
+
+        String prestamoId = UUID.randomUUID().toString();
+        Prestamo nuevoPrestamo = new Prestamo(prestamoId, materialId, profesor, fecha);
+        prestamoRepository.save(nuevoPrestamo);
 
         return nuevoPrestamo;
 
@@ -53,7 +55,7 @@ public class PrestamoServiceImpl {
 
     public void devolverMaterial(String materialId) {
         //Si idMaterial es null/vacío → IllegalArgumentException
-        if(materialId == null) {
+        if(materialId == null || materialId.isEmpty()) {
             throw new IllegalArgumentException("El identificador del material esta vacio");
         }
         //Si no existe material → NoEncontradoException
@@ -64,11 +66,11 @@ public class PrestamoServiceImpl {
         Material m = materialExistente.get();
 
         //Si existe pero su estado no es PRESTADO → MaterialNoDisponibleException
-        if(!m.getEstado().equals(EstadoMaterial.PRESTADO)) {
+        if(m.getEstado() != (EstadoMaterial.PRESTADO)) {
             throw new MaterialNoDisponibleException("Material existente no esta prestado");
-        } else if(m.getEstado().equals(EstadoMaterial.DISPONIBLE)) {
-            materialRepository.save(materialExistente.get());
         }
+        m.setEstado(EstadoMaterial.DISPONIBLE);
+        materialRepository.save(m);
 
     }
 

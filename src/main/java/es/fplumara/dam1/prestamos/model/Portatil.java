@@ -6,9 +6,14 @@ public class Portatil extends Material {
 
     private int ramGB;
 
+    public Portatil() {
+
+    }
 
     public Portatil(String id, String name, EstadoMaterial estado, int ramGB) {
-        super(id, name, estado, ramGB);
+
+        super(id, name, estado);
+        this.ramGB = ramGB;
     }
 
     public int getRamGB() {
@@ -19,4 +24,8 @@ public class Portatil extends Material {
         this.ramGB = ramGB;
     }
 
+    @Override
+    public String getTipo() {
+        return "PORTATIL";
+    }
 }

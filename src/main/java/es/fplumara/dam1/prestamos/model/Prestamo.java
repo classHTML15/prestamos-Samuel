@@ -9,7 +9,7 @@ public class Prestamo implements Identificable {
     private String profesor;
     private LocalDate fecha;
 
-    public Prestamo(String id, String idMaterial, LocalDate fecha, String profesor) {
+    public Prestamo(String id, String idMaterial, String profesor, LocalDate fecha) {
         this.id = id;
         this.idMaterial = idMaterial;
         this.profesor = profesor;

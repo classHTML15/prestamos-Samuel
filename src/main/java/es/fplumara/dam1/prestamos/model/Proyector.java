@@ -4,17 +4,26 @@ import java.util.Set;
 
 public class Proyector extends Material {
 
-    private Integer lumens;
+    private int lumens;
 
-    public Integer getLumens() {
-        return lumens;
-    }
-
-    public void setLumens(Integer lumens) {
-        this.lumens = lumens;
+    public Proyector() {
     }
 
     public Proyector(String id, String name, EstadoMaterial estado, Set<String> etiquetas, Integer lumens) {
-        super(id, name, estado, etiquetas, lumens);
+        super(id, name, estado);
+        this.lumens = lumens;
+    }
+
+    public int getLumens() {
+        return lumens;
+    }
+
+    public void setLumens(int lumens) {
+        this.lumens = lumens;
+    }
+
+    @Override
+    public String getTipo() {
+        return "PROYECTOR";
     }
 }

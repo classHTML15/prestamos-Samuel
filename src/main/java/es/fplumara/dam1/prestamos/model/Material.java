@@ -14,6 +14,10 @@ public abstract class Material implements Identificable {
         this.id = id;
         this.name = name;
         this.estado = estado;
+        this.etiquetas = new HashSet<>();
+    }
+
+    public Material() {
     }
 
     public String getId() {
@@ -48,5 +52,9 @@ public abstract class Material implements Identificable {
         this.etiquetas = etiquetas;
     }
 
+    public void addEtiqueta(String etiqueta) {
+        this.etiquetas.add(etiqueta);
+    }
 
+    public abstract String getTipo();
 }
