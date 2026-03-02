@@ -61,13 +61,13 @@ class PrestamosServiceTest {
         // - crearPrestamo_ok_cambiaEstado_y_guarda()
     void crearPrestamo_ok_cambiaEstado_y_guarda() throws NoEncontradoException {
 
-        Material material = new Portatil(materialId, "Portatil test", EstadoMaterial.DISPONIBLE, 20);
+        Material material = new Portatil(materialId, "Portatil Aula 1", EstadoMaterial.DISPONIBLE, 20);
         when(materialRepository.findById(materialId)).thenReturn(Optional.of(material));
 
         Prestamo prestamo = prestamoService.crearPrestamo(materialId, "Raul", fecha);
         assertNotNull(prestamo);
         assertNotNull(prestamo.getId());
-        assertEquals("Q004", prestamo.getIdMaterial());
+        assertEquals("M001", prestamo.getIdMaterial());
         assertEquals("Raul", prestamo.getProfesor());
         assertEquals(fecha, prestamo.getFecha());
         assertEquals(EstadoMaterial.PRESTADO, material.getEstado());
@@ -95,7 +95,7 @@ class PrestamosServiceTest {
     // - crearPrestamo_materialNoDisponible_lanzaMaterialNoDisponible()
     @Test
     void crearPrestamo_materialNoDisponible_lanzaMaterialNoDisponible() throws MaterialNoDisponibleException {
-        Material material = new Portatil(materialId, "Profesor Luis", EstadoMaterial.PRESTADO, 20);
+        Material material = new Portatil(materialId, "Portátil Aula 2", EstadoMaterial.PRESTADO, 20);
         when(materialRepository.findById(materialId)).thenReturn(Optional.of(material));
         assertThrows(MaterialNoDisponibleException.class, () -> {
             prestamoService.crearPrestamo(materialId, profesor, fecha);
@@ -107,7 +107,7 @@ class PrestamosServiceTest {
     // - devolverMaterial_ok_cambiaADisponible()
     @Test
     void devolverMaterial_ok_cambiaADisponible() throws NoEncontradoException, MaterialNoDisponibleException {
-        Material material = new Portatil(materialId, "Profesor Luis", EstadoMaterial.PRESTADO, 20);
+        Material material = new Portatil(materialId, "Proyector Epson", EstadoMaterial.PRESTADO, 20);
         when(materialRepository.findById(materialId)).thenReturn(Optional.of(material));
         prestamoService.devolverMaterial(materialId);
         assertEquals(EstadoMaterial.DISPONIBLE, material.getEstado());

@@ -32,7 +32,7 @@ public class PrestamoServiceImpl {
         //Si no existe material con ese id → NoEncontradoException
         Optional<Material> material = materialRepository.findById(materialId);
         if(material.isEmpty()) {
-            throw new NoEncontradoException("El identificador del material no existe");
+            throw new NoEncontradoException("El identificador del material no existe" + materialId);
         }
         Material m = material.get();
 

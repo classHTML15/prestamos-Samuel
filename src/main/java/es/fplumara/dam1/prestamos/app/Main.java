@@ -24,6 +24,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws DuplicadoMaterialIdException, NoEncontradoException, MaterialNoDisponibleException {
+
         System.out.println("Examen DAM1 - Préstamo de Material (Java 21)");
 
         /*
@@ -80,7 +81,6 @@ public class Main {
                 portatil.setEtiquetas(registroMaterialCsv.etiquetas());
                 portatil.setRamGB(Integer.parseInt(String.valueOf(registroMaterialCsv.extra())));
                 materialService.registrarMaterial(portatil);
-
             } else{
                 Proyector proyector = new Proyector();
                 proyector.setId(registroMaterialCsv.id());
@@ -106,7 +106,7 @@ public class Main {
          *    - Llamar a PrestamoService.crearPrestamo("M001", "Nombre Profesor", fecha)
          *    - Comprobar que el material pasa a estado PRESTADO
          */
-        String materialId = "Q004";
+        String materialId = "M001";
         prestamoService.crearPrestamo(materialId,"Raul", LocalDate.now());
         Material material = materialService.obtenerMaterial(materialId);
         System.out.println(material.getEstado());
